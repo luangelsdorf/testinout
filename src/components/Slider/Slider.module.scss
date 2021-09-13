@@ -1,0 +1,27 @@
+@keyframes slide-left {
+  from {
+    transform: translate3d(calc(-33.33% / 2), 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% - 50%), 0, 0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translate3d(calc(-100% * 1.5), 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-33.33% / 2), 0, 0);
+  }
+}
+
+.row1 {
+  animation: slide-left 15s linear infinite;
+  margin-bottom: 24px;
+}
+
+.row2 {
+  animation: slide-right 15s linear infinite;
+  margin-bottom: 100px;
+}
