@@ -19,6 +19,9 @@
   height: 300px;
   position: relative;
   transform-style: preserve-3d;
+  transform: translateZ(-150px);
+  cursor: pointer;
+  user-select: none;
 }
 
 .face {
