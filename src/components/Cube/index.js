@@ -5,22 +5,37 @@ export default function Cube() {
   const [mov, setMov] = useState({ mx: 0, my: 0 });
   const shape = useRef(null);
 
+  // runs once to assign an event listener that updates state
   useEffect(() => {
-    window.onmousemove = mouseMove;
+    shape.current.onmousedown = () => {
+      window.onmousemove = e => {
+        setMov(lastMov => {
+          return {
+            mx: lastMov.mx + e.movementX,
+            my: lastMov.my + e.movementY,
+          }
+        });
+      }
+    }
+
+    window.onmouseup = () => {
+      window.onmousemove = null;
+    }
   }, [])
 
-  function mouseMove(e) {
+
+  useEffect(() => {
+    console.log(`${mov.mx}, ${mov.my}`);
+    mouseMove();
+  }, [mov])
+
+  function mouseMove() {
     window.requestAnimationFrame(() => {
       shape.current.style.transform = `translateZ(-150px) rotateX(${-mov.my}deg) rotateY(${mov.mx}deg)`;
     });
-
-    setMov(lastMov => {
-      return {
-        mx: lastMov.mx + e.movementX,
-        my: lastMov.my + e.movementY,
-      }
-    })
   }
+
+
 
   return (
     <>
@@ -39,8 +54,8 @@ export default function Cube() {
           <div className={styles.face}>BOTTOM</div>
         </div>
       </div>
-      <h1>{`X: ${mov.mx}`}</h1>
-      <h1>{`Y: ${mov.my}`}</h1>
+      <h3>{`X: ${mov.mx}`}</h3>
+      <h3>{`Y: ${mov.my}`}</h3>
     </>
   )
 }
