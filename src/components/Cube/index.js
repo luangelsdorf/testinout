@@ -25,7 +25,6 @@ export default function Cube() {
 
 
   useEffect(() => {
-    console.log(`${mov.mx}, ${mov.my}`);
     mouseMove();
   }, [mov])
 
