@@ -67,7 +67,7 @@ export default function Home() {
       totalMinutes,
       totalHours,
     }
-    router.push({pathname: '/form', query: {options: JSON.stringify(query)}});
+    router.push({pathname: '/timer', query: {options: JSON.stringify(query)}});
   }
 
   useEffect(() => {
