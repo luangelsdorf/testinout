@@ -70,9 +70,7 @@ export default function Home() {
     router.push({pathname: '/timer', query: {options: JSON.stringify(query)}});
   }
 
-  useEffect(() => {
-    handleChange();
-  }, [focusTime, shortBreak, longBreak, cyclesUntilLongBreak, cycles]);
+  useEffect(handleChange, [focusTime, shortBreak, longBreak, cyclesUntilLongBreak, cycles]);
 
   return (
     <section className={styles.section} className="container">
@@ -81,26 +79,26 @@ export default function Home() {
         <div className="w-25">
           <div>
             <label htmlFor="focus">Tempo de foco</label>
-            <input min="1" className="form-control" id="focus" type="number" onChange={e => setFocusTime(parseFloat(e.target.value))} />
+            <input value={focusTime} min="1" className="form-control" id="focus" type="number" onChange={e => setFocusTime(parseFloat(e.target.value))} />
           </div>
           <div>
             <label htmlFor="shortBreak">Pausa curta</label>
-            <input min="1" className="form-control" id="shortBreak" type="number" onChange={e => setShortBreak(parseFloat(e.target.value))} />
+            <input value={shortBreak} min="1" className="form-control" id="shortBreak" type="number" onChange={e => setShortBreak(parseFloat(e.target.value))} />
           </div>
           <div>
             <label htmlFor="longBreak">Pausa longa</label>
-            <input min="1" className="form-control" id="longBreak" type="number" onChange={e => setLongBreak(parseFloat(e.target.value))} />
+            <input value={longBreak} min="1" className="form-control" id="longBreak" type="number" onChange={e => setLongBreak(parseFloat(e.target.value))} />
           </div>
           <div>
             <label htmlFor="untilLong">Ciclos até uma pausa longa</label>
-            <input min="1" className="form-control" id="untilLong" type="number" onChange={e => setCyclesUntilLongBreak(parseFloat(e.target.value))} />
+            <input value={cyclesUntilLongBreak} min="1" className="form-control" id="untilLong" type="number" onChange={e => setCyclesUntilLongBreak(parseFloat(e.target.value))} />
           </div>
           <div>
             <label htmlFor="cycles">Número de ciclos</label>
-            <input min="1" className="form-control" id="cycles" type="number" onChange={e => setCycles(parseFloat(e.target.value))} />
+            <input value={cycles} min="1" className="form-control" id="cycles" type="number" onChange={e => setCycles(parseFloat(e.target.value))} />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary mt-3">GO!</button>
+        <button type="submit" className="btn btn-primary mt-3">Submit</button>
       </form>
 
       <hr />
