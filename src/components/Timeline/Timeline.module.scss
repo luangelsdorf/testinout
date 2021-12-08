@@ -1,0 +1,113 @@
+@import "../../styles/scss/colors";
+
+.section {
+  margin-top: 225px;
+
+  & > div:first-child {
+    text-align: center;
+    margin-bottom: 65px;
+
+    h3 {
+      position: relative;
+      margin: 0 auto;
+    }
+  }
+}
+
+.cards {
+  position: relative;
+
+  & > div:not(.line) {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $lightDark;
+    padding: 40px 30px;
+    transition: all 500ms ease;
+
+    &.active {
+      background: $lightGray;
+      h5 {
+        color: $dark;
+      }
+      small {
+        color: $ghost;
+      }
+      .number {
+        background: $lightGray;
+        color: $dark;
+      }
+    }
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    h5 {
+      margin: 20px 0;
+    }
+  }
+
+  & > div:last-child {
+    .number {
+      overflow: hidden;
+    }
+  }
+}
+
+.line {
+  position: absolute;
+  z-index: -2;
+  top: 50%;
+  left: -65px;
+  height: calc(100% * 8.6);
+  width: 1px;
+  border-left: 1px dashed $ghost;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:last-child {
+    border-left: 1px dashed $lightGray;
+    height: 0;
+    transition: height 150ms ease;
+  }
+}
+
+.lineFill {
+  z-index: -1;
+}
+
+.image {
+  position: sticky;
+  top: 130px;
+}
+
+.number {
+  position: absolute;
+  left: -85px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $lightDark;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: $gray;
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 50%;
+    height: calc(100% + 205px);
+    width: 1px;
+    border-left: 1px dashed $dark;
+  }
+}
