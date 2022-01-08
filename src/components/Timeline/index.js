@@ -1,7 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { getMaxHeight } from 'src/util/modules';
 import styles from './Timeline.module.scss';
 
 export default function TimeLine() {
+  const [lineHeight, setLineHeight] = useState(0);
+  const line = useRef(null);
 
   let steps = [
     {
@@ -79,46 +82,61 @@ export default function TimeLine() {
     }
   ]
 
-  let thres = [];
-  for (let index = 0; index <= 1.0; index = index + 0.01) {
-    thres.push(index);
-  }
+  let screenCenter;
+  let target;
+  let maxLineHeight;
+  let numbers;
 
-  const options = {
-    rootMargin: '100% 0px 100% 0px',
-    threshold: thres,
-  }
+  function handleScroll() {
+    const el = document.querySelector(`.${styles.cards}`);
+    const top = el.getBoundingClientRect().top;
+    const lineBottom = line.current.getBoundingClientRect().bottom;
+    let height = screenCenter - top;
+    if (top < screenCenter && height < maxLineHeight) {
+      setLineHeight(height);
+    }
 
-  const callback = entries => {
-    entries.forEach(entry => {
-      /* if (entry.isIntersecting) {
-        console.log('entred');
+    numbers.forEach((number, index) => {
+      let margin;
+      index === 0 ? margin = 50 : margin = 0;
+      // 👆 adicionando uma margem de 100px para o primeiro elemento ficar ativo
+      if (number.getBoundingClientRect().top + margin < lineBottom) {
+        number.parentElement.classList.add(styles.active);
       } else {
-        console.log('exited');
-      } */
-      console.log(entry.intersectionRatio);
+        number.parentElement.classList.remove(styles.active);
+      }
     });
   }
 
   useEffect(() => {
-    let observer = new IntersectionObserver(callback, options);
-    observer.observe(document.querySelector(`.${styles.cards}`))
-  }, [])
+    const cardList = document.querySelectorAll(`.${styles.cards} > div`);
+    //
+    screenCenter = window.innerHeight / 2;
+    target = document.querySelector(`.${styles.line}:last-child`);
+    maxLineHeight = getMaxHeight(cardList);
+    numbers = document.querySelectorAll(`.${styles.cards} > div span`);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [screenCenter, target]);
 
   function Line() {
     return (
       <>
-        {/* <div className={`${styles.line} lineBase`} /> */}
-        <div className={styles.line} />
+        <div ref={line} style={{ height: `${lineHeight}px` }} className={styles.line} />
       </>
     )
   }
 
-  
+
 
   return (
     <section className={styles.section}>
-      <div style={{height: '1200px'}} />
+      <div style={{ height: '1200px' }} />
       <div>
         <h3 className="gradient-bg">AEHOOO</h3>
         <h1>ASUDASGDYAS</h1>
@@ -134,7 +152,7 @@ export default function TimeLine() {
                 steps.map((step, index) => {
                   return (
                     <div key={`step-${index}`}>
-                      <span className={styles.number}>{index + 1}</span>
+                      <span id={`step-${index + 1}`} className={styles.number}>{index + 1}</span>
                       <h5>{step.name}</h5>
                       <small>{step.text}</small>
                       {index === 0 ? <Line /> : null}
@@ -146,7 +164,7 @@ export default function TimeLine() {
           </div>
         </div>
       </div>
-      <div style={{height: '1200px'}} />
+      <div style={{ height: '1200px' }} />
     </section>
   )
 }
