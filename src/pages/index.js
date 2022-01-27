@@ -73,7 +73,7 @@ export default function Home() {
   useEffect(handleChange, [focusTime, shortBreak, longBreak, cyclesUntilLongBreak, cycles]);
 
   return (
-    <section className={styles.section} className="container">
+    <section className={`container ${styles.section}`}>
 
       <form onSubmit={handleSubmit}>
         <div className="w-25">

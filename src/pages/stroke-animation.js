@@ -1,10 +1,8 @@
 import React from 'react'
-import Logo from 'src/components/Logo'
+import Icon from 'src/components/Icon'
 
 export default function animationPage() {
   return (
-    <div>
-      <Logo />
-    </div>
+    <Icon />
   )
 }
