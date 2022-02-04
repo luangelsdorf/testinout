@@ -1,4 +1,4 @@
-@use 'sass:math';
+@use "sass:math";
 
 .section {
   width: 100%;
@@ -8,7 +8,31 @@
 
   svg {
     width: 100%;
-    max-height: 100vh;
+    max-height: 70vh;
+  }
+}
+
+@keyframes logo-animation {
+  0% {
+    stroke-dasharray: 200 0;
+    fill-opacity: 0;
+    stroke-width: 1;
+  }
+}
+
+.logo, .logo2 {
+  path {
+    fill: #d5d5d5;
+    stroke: #d5d5d5;
+    fill-opacity: 1;
+    stroke-dasharray: 0 200;
+    stroke-width: 0;
+    
+    transition: all 2s ease;
+
+    stroke-dasharray: 200 0;
+    fill-opacity: 0;
+    stroke-width: 1;
   }
 }
 
@@ -64,6 +88,11 @@ $iconPaths: (
     "square": 17,
     "curve1": 32,
     "curve2": 32,
+  ),
+  "logo": (
+    /* "middle" : 295,
+    "outer" : 432,
+    "inner" : 150, */
   ),
 );
 
